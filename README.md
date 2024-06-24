@@ -1,24 +1,41 @@
 # Search-Engine
 
 # Overview
-This project implements a simple search engine with two main components: a web crawler and a search engine. The web crawler is responsible for traversing the web, extracting text and links from web pages, and storing this information in a database. The search engine component uses this indexed data to allow users to search for keywords and retrieve relevant results.
+This project implements a simple search engine, consisting of two main components: a web crawler and a search engine interface. The web crawler is responsible for traversing the web, extracting textual data and links from web pages, and storing this information in a database. The search engine component allows users to search for keywords and retrieve relevant results from the indexed data.
 
 Components
 Web Crawler
 Database Connection and Indexer
-Search Engine
+Search Engine Interface
 History Tracking
 1. Web Crawler
-The web crawler is designed to traverse the web starting from a specified URL, extracting data from web pages, and following links to other pages up to a set depth limit. It uses the Jsoup library to connect to web pages and parse their HTML content. The crawler extracts the page title, text content, and hyperlinks, and stores this information in a database through the Indexer.
+The web crawler is designed to traverse the web starting from a specified URL. It uses the Jsoup library to connect to web pages and parse their HTML content. The crawler performs the following tasks:
+
+URL Traversal: It recursively follows all links found on each page up to a specified depth (max_depth), ensuring each URL is processed only once using a HashSet.
+Document Parsing: For each visited URL, the crawler extracts the page title, text content, and all hyperlinks.
+Data Indexing: The extracted data is passed to the Indexer class, which stores the information in a database.
+This component ensures that the web crawler can efficiently collect and store data from multiple web pages, making it available for the search engine to query.
 
 2. Database Connection and Indexer
-The database connection component uses JDBC to manage connections to a MySQL database. The DatabaseConnection class handles the connection setup, while the Indexer class is responsible for saving the extracted data from the crawler into the database. This setup allows efficient storage and retrieval of web page data, including titles, URLs, and textual content.
+The database connection and indexing components handle the storage of extracted data into a MySQL database. The DatabaseConnection class manages the connection setup, using JDBC to connect to the database. It provides methods to establish and retrieve connections, ensuring efficient and reusable database interaction.
 
-3. Search Engine
-The search engine component provides a web interface for users to search the indexed data. It includes a form where users can enter keywords. When a search is submitted, the Search servlet processes the request, queries the database for relevant pages based on keyword occurrences, and displays the results. The search results include the page title and link, ranked by the frequency of the keyword in the page content.
+The Indexer class is responsible for saving the crawled data into the database. It extracts relevant information such as the page title, URL, and text content from the web pages and inserts this data into the database. This setup allows for efficient storage and retrieval of web page data, enabling the search engine to perform keyword searches.
+
+3. Search Engine Interface
+The search engine interface provides a web-based platform for users to enter search queries and retrieve results. The main features include:
+
+Search Form: A simple HTML form where users can enter keywords and submit search requests.
+Search Processing: The Search servlet processes search requests by querying the database for relevant pages. It calculates the frequency of the keyword in the page content and ranks the results accordingly.
+Results Display: The results are displayed in a user-friendly format, showing the page title and link, allowing users to access the relevant web pages.
+This component ensures that users can efficiently search and retrieve relevant data from the indexed web pages.
 
 4. History Tracking
-The history tracking component records each search query made by users. The History servlet retrieves and displays the search history, showing previously searched keywords and their corresponding search links. This allows users to revisit past search queries and results.
+The history tracking component records each search query made by users. It includes:
 
-Summary
-This simple search engine project demonstrates the basic functionality of a web crawler and search engine, including web traversal, data extraction, database storage, keyword search, and history tracking. It provides a foundation that can be extended with additional features such as more advanced ranking algorithms, support for different data formats, and enhanced user interfaces.
+Recording Searches: The Search servlet logs each search query and the corresponding search link into the database.
+History Retrieval: The History servlet retrieves and displays the search history, showing previously searched keywords and their corresponding links.
+User Interface: The search history is presented in a tabular format, allowing users to revisit past search queries and results.
+This component provides users with the ability to track their search history and revisit previous search results, enhancing the overall user experience.
+
+# Summary
+This simple search engine project showcases a foundational implementation of a web crawler and search engine. It includes essential functionalities such as web crawling, data indexing, keyword searching, and history tracking. Designed to be extendable, this project provides a robust base for further development and enhancement, such as incorporating more advanced ranking algorithms, supporting different data formats, and improving the user interface for a more comprehensive search experience.
