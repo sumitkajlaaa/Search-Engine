@@ -1,5 +1,6 @@
 # Search-Engine
-Overview
+
+# Overview
 This project implements a simple search engine with two main components: a web crawler and a search engine. The web crawler is responsible for traversing the web, extracting text and links from web pages, and storing this information in a database. The search engine component uses this indexed data to allow users to search for keywords and retrieve relevant results.
 
 Components
